@@ -1,7 +1,9 @@
 ﻿// Launcher.cpp : 定义应用程序的入口点。
 //
 
-#include "framework.h"
+#include "../framework.h"
+
+#pragma comment(linker,"/ENTRY:entry")
 
 void entry()
 {

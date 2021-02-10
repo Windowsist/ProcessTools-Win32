@@ -1,13 +1,13 @@
 
-#include <windows.h>
+#include "../framework.h"
 
 int
 WINAPI
 wWinMain(
-    _In_ HINSTANCE hInstance,
-    _In_opt_ HINSTANCE hPrevInstance,
-    _In_ LPWSTR lpCmdLine,
-    _In_ int nShowCmd
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPWSTR lpCmdLine,
+    int nShowCmd
 )
 {
     {
@@ -32,27 +32,27 @@ wWinMain(
     OPENFILENAMEW myfn =
     {
         sizeof(OPENFILENAMEW),                                                              //DWORD lStructSize;
-        nullptr,                                                                            //HWND hwndOwner;
+        0, //nullptr                                                                            //HWND hwndOwner;
         hInstance,                                                                          //HINSTANCE hInstance;
-        nullptr,                                                                            //LPCWSTR lpstrFilter;
-        nullptr,                                                                            //LPWSTR lpstrCustomFilter;
+        0, //nullptr                                                                            //LPCWSTR lpstrFilter;
+        0, //nullptr                                                                            //LPWSTR lpstrCustomFilter;
         0,                                                                                  //DWORD nMaxCustFilter;
         0,                                                                                  //DWORD nFilterIndex;
         new wchar_t[260],                                                                    //LPWSTR lpstrFile;
         260,                                                                                //DWORD nMaxFile;
-        nullptr,                                                                            //LPWSTR lpstrFileTitle;
+        0, //nullptr                                                                            //LPWSTR lpstrFileTitle;
         0,                                                                                  //DWORD nMaxFileTitle;
         lpCmdLine,                                                                          //LPCWSTR lpstrInitialDir;
-        nullptr,                                                                            //L"title(can be null)",//LPCWSTR lpstrTitle;
+        0, //nullptr                                                                            //L"title(can be null)",//LPCWSTR lpstrTitle;
         //OFN_HIDEREADONLY | 
         OFN_ALLOWMULTISELECT | OFN_EXPLORER | OFN_FORCESHOWHIDDEN | OFN_DONTADDTORECENT,    //DWORD Flags;
         0,                                                                                  //WORD nFileOffset;---------------------------------?
         0,                                                                                  //WORD nFileExtension;
-        nullptr,                                                                            //LPCWSTR lpstrDefExt;
+        0, //nullptr                                                                            //LPCWSTR lpstrDefExt;
         0,                                                                                  //LPARAM lCustData;
-        nullptr,                                                                            //LPOFNHOOKPROC lpfnHook;
-        nullptr,                                                                            //LPCWSTR lpTemplateName;
-        nullptr,                                                                            //void *pvReserved;
+        0, //nullptr                                                                            //LPOFNHOOKPROC lpfnHook;
+        0, //nullptr                                                                            //LPCWSTR lpTemplateName;
+        0, //nullptr                                                                            //void *pvReserved;
         0,                                                                                  //DWORD dwReserved;
         0                                                                                   //OFN_EX_NOPLACESBAR//DWORD FlagsEx;
     };
