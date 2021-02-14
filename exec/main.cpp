@@ -1,7 +1,7 @@
 ﻿// exec.cpp : 定义应用程序的入口点。
 //
 
-#include "../framework.h"
+#include <windows.h>
 
 #pragma comment(linker,"/ENTRY:entry")
 
