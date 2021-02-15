@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(exectools VERSION 0.1.0)
 
+string(APPEND CMAKE_EXE_LINKER_FLAGS " /manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
 set(CMAKE_C_FLAGS_DEBUG "/MD /Zi /Ob0 /Od")
 set(CMAKE_CXX_FLAGS_DEBUG "/MD /Zi /Ob0 /Od")
 string(APPEND CMAKE_C_FLAGS " /GS-")
