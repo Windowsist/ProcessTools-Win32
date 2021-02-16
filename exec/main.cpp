@@ -24,7 +24,7 @@ void entry()
     }
     if (!lpCmdLine[0])
     {
-        MessageBoxW(0,L"需要指定运行的程序",L"未运行",MB_ICONINFORMATION);
+        MessageBoxW(nullptr,L"需要指定运行的程序",L"未运行",MB_ICONINFORMATION);
         ExitProcess(0);
     }
     while (lpCmdLine[i])
@@ -51,7 +51,7 @@ void entry()
     lstrcpynW(pathdir, pathfn, j + 2);
     _STARTUPINFOW si = {};
     _PROCESS_INFORMATION pi;
-    if (!CreateProcessW(pathfn, lpCmdLine, 0, 0, 0, 0, 0, pathdir, &si, &pi))
+    if (!CreateProcessW(pathfn, lpCmdLine, nullptr, nullptr, FALSE, 0, nullptr, pathdir, &si, &pi))
     {
         HANDLE hp = GetProcessHeap();
         LPWSTR info = (LPWSTR)HeapAlloc(hp, HEAP_GENERATE_EXCEPTIONS, sizeof(wchar_t) * ((size_t)lstrlenW(pathfn) + lstrlenW(lpCmdLine) + lstrlenW(pathdir) + 19));
@@ -61,7 +61,7 @@ void entry()
         lstrcatW(info, lpCmdLine);
         lstrcatW(info, L"\n工作目录：");
         lstrcatW(info, pathdir);
-        MessageBoxW(0, info, L"运行失败", MB_ICONERROR);
+        MessageBoxW(nullptr, info, L"运行失败", MB_ICONERROR);
         HeapFree(hp,0,info);
     }
     ExitProcess(0);

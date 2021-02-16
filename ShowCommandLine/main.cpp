@@ -10,7 +10,7 @@ wWinMain(
     int nShowCmd
 )
 {
-	DialogBoxW(hInstance,MAKEINTRESOURCEW(IDD_DIALOG1),0,DlgProc);
+	DialogBoxW(hInstance,MAKEINTRESOURCEW(IDD_DIALOG1),nullptr,DlgProc);
     return 0;
 }
 

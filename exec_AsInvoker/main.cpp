@@ -24,12 +24,12 @@ void entry()
     }
     if (!lpCmdLine[0])
     {
-        MessageBoxW(0, L"需要指定运行的程序", L"未运行", MB_ICONINFORMATION);
+        MessageBoxW(nullptr, L"需要指定运行的程序", L"未运行", MB_ICONINFORMATION);
         ExitProcess(0);
     }
     if (!SetEnvironmentVariableW(L"__COMPAT_LAYER",L"RUNASINVOKER"))
     {
-        MessageBoxW(0, L"设置环境变量失败", L"警告", MB_ICONWARNING);
+        MessageBoxW(nullptr, L"设置环境变量失败", L"警告", MB_ICONWARNING);
     }
     while (lpCmdLine[i])
     {
@@ -55,7 +55,7 @@ void entry()
     lstrcpynW(pathdir, pathfn, j + 2);
     _STARTUPINFOW si = {};
     _PROCESS_INFORMATION pi;
-    if (!CreateProcessW(pathfn, lpCmdLine, 0, 0, 0, 0, 0, pathdir, &si, &pi))
+    if (!CreateProcessW(pathfn, lpCmdLine, nullptr, nullptr, FALSE, 0, nullptr, pathdir, &si, &pi))
     {
         HANDLE hp = GetProcessHeap();
         LPWSTR info = (LPWSTR)HeapAlloc(hp, HEAP_GENERATE_EXCEPTIONS, sizeof(wchar_t) * ((size_t)lstrlenW(pathfn) + lstrlenW(lpCmdLine) + lstrlenW(pathdir) + 19));
