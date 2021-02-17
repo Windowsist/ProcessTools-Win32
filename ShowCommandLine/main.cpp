@@ -1,16 +1,9 @@
 
-#include"main.h"
+#include "main.h"
 
-int
-WINAPI
-wWinMain(
-    HINSTANCE hInstance,
-    HINSTANCE hPrevInstance,
-    LPWSTR lpCmdLine,
-    int nShowCmd
-)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd)
 {
-	DialogBoxW(hInstance,MAKEINTRESOURCEW(IDD_DIALOG1),nullptr,DlgProc);
+    DialogBoxW(hInstance, MAKEINTRESOURCEW(IDD_DIALOG1), nullptr, DlgProc);
     return 0;
 }
 
@@ -23,9 +16,9 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_INITDIALOG:
-        Edit_SetText(GetDlgItem(hDlg,IDC_EDIT1),GetCommandLineW());
-	    env = GetEnvironmentStringsW();
-        for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i)+ 1 )
+        Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
+        env = GetEnvironmentStringsW();
+        for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
         {
             envlen += lstrlenW(i) + 2;
         }
@@ -33,8 +26,8 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         envString[0] = 0;
         for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
         {
-            lstrcatW(envString,i);
-            lstrcatW(envString,L"\r\n");
+            lstrcatW(envString, i);
+            lstrcatW(envString, L"\r\n");
         }
         Edit_SetText(GetDlgItem(hDlg, IDC_EDIT2), envString);
         delete[] envString;
