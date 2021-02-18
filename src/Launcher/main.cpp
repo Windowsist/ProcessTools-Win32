@@ -2,7 +2,12 @@
 
 #include <windows.h>
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd)
+int
+    WINAPI
+    wWinMain(_In_ HINSTANCE hInstance,
+             _In_opt_ HINSTANCE hPrevInstance,
+             _In_ LPWSTR lpCmdLine,
+             _In_ int nShowCmd)
 {
     wchar_t pathmdfn[260], pathfn[260], cmdl[260], pathdir[260];
     GetModuleFileNameW(hInstance, pathmdfn, 260);

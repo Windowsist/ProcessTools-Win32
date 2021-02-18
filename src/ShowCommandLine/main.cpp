@@ -1,7 +1,12 @@
 
 #include "main.h"
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nShowCmd)
+int
+    WINAPI
+    wWinMain(_In_ HINSTANCE hInstance,
+             _In_opt_ HINSTANCE hPrevInstance,
+             _In_ LPWSTR lpCmdLine,
+             _In_ int nShowCmd)
 {
     DialogBoxW(hInstance, MAKEINTRESOURCEW(IDD_DIALOG1), nullptr, DlgProc);
     return 0;
