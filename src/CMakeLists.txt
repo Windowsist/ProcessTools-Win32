@@ -1,11 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(exectools VERSION 0.1.0)
 
-set(CMAKE_C_FLAGS_DEBUG "/MD /Zi /Ob0 /Od")
-set(CMAKE_CXX_FLAGS_DEBUG "/MD /Zi /Ob0 /Od")
-string(APPEND CMAKE_C_FLAGS " /GS-")
-string(APPEND CMAKE_CXX_FLAGS " /GS-")
-
 add_executable(exec WIN32 exec/Resource.rc exec/main.cpp)
 add_executable(exec_AsInvoker WIN32 exec_AsInvoker/Resource.rc exec_AsInvoker/main.cpp)
 add_executable(Launcher WIN32 Launcher/Resource.rc Launcher/main.cpp)
