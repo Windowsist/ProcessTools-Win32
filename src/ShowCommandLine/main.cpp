@@ -14,32 +14,28 @@ int
 
 INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    UNREFERENCED_PARAMETER(lParam);
-    LPWCH env;
-    LPWSTR envString;
-    int envlen = 0;
     switch (message)
     {
-    case WM_INITDIALOG:
-        Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
-        env = GetEnvironmentStringsW();
+    case WM_INITDIALOG:{
+        LPWCH env = GetEnvironmentStringsW();
+        int envlen = 0;
         for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
         {
             envlen += lstrlenW(i) + 2;
         }
-        envString = new wchar_t[envlen + 1];
+        LPWSTR envString = new wchar_t[envlen + 1];
         envString[0] = 0;
         for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
         {
             lstrcatW(envString, i);
             lstrcatW(envString, L"\r\n");
         }
+        Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
         Edit_SetText(GetDlgItem(hDlg, IDC_EDIT2), envString);
-        delete[] envString;
+        delete[] envString;}
         return (INT_PTR)TRUE;
-
     case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+        if (LOWORD(wParam) == IDOK)
         {
             EndDialog(hDlg, LOWORD(wParam));
             return (INT_PTR)TRUE;
