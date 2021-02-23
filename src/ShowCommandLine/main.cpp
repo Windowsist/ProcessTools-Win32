@@ -16,7 +16,8 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_INITDIALOG:{
+    case WM_INITDIALOG:
+    {
         LPWCH env = GetEnvironmentStringsW();
         int envlen = 0;
         for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
@@ -32,7 +33,8 @@ INT_PTR CALLBACK DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         }
         Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
         Edit_SetText(GetDlgItem(hDlg, IDC_EDIT2), envString);
-        delete[] envString;}
+        delete[] envString;
+    }
         return (INT_PTR)TRUE;
     case WM_COMMAND:
         if (LOWORD(wParam) == IDOK)

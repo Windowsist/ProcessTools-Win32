@@ -9,25 +9,6 @@ int
              _In_ LPWSTR lpCmdLine,
              _In_ int nShowCmd)
 {
-    {
-        size_t i = 0, j = 0;
-        while (lpCmdLine[j])
-        {
-            if (lpCmdLine[j] != L'\"')
-            {
-                if (i != j)
-                {
-                    lpCmdLine[i] = lpCmdLine[j];
-                }
-                i++;
-            }
-            j++;
-        }
-        if (i != j)
-        {
-            lpCmdLine[i] = 0;
-        }
-    }
     OPENFILENAMEW myfn =
         {
             sizeof(OPENFILENAMEW), //DWORD lStructSize;
@@ -41,7 +22,7 @@ int
             260,                   //DWORD nMaxFile;
             nullptr,               //LPWSTR lpstrFileTitle;
             0,                     //DWORD nMaxFileTitle;
-            lpCmdLine,             //LPCWSTR lpstrInitialDir;
+            nullptr,               //LPCWSTR lpstrInitialDir;
             nullptr,               //L"title(can be null)",//LPCWSTR lpstrTitle;
             //OFN_HIDEREADONLY |
             OFN_ALLOWMULTISELECT |
@@ -58,6 +39,12 @@ int
             0,                       //DWORD dwReserved;
             0                        //OFN_EX_NOPLACESBAR//DWORD FlagsEx;
         };
+    if (*lpCmdLine)
+    {
+        int argc;
+        LPWSTR *argv = CommandLineToArgvW(lpCmdLine, &argc);
+        myfn.lpstrInitialDir = argv[0];
+    }
     *(myfn.lpstrFile) = 0;
     do
     {
