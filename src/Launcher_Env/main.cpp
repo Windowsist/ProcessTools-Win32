@@ -10,21 +10,23 @@ int
 {
     wchar_t pathmdfn[260], pathfn[260], cmdl[260], pathdir[260];
     GetModuleFileNameW(hInstance, pathmdfn, 260);
-    UINT baselen = lstrlenW(pathmdfn) - 1;
-    while (pathmdfn[baselen] != L'\\' && baselen)
     {
-        baselen--;
+        UINT baselen = lstrlenW(pathmdfn) - 1;
+        while (pathmdfn[baselen] != L'\\' && baselen)
+        {
+            baselen--;
+        }
+        baselen++;
+        cmdl[0] = L'\"';
+        lstrcpynW(pathfn, pathmdfn, baselen + 1);
+        lstrcpynW(cmdl + 1, pathmdfn, baselen + 1);
+        lstrcpynW(pathdir, pathmdfn, baselen + 1);
+        lstrcpyW(pathmdfn + lstrlenW(pathmdfn) - 3, L"ini");
+        GetPrivateProfileStringW(L"LaunchApp", L"AppPath", nullptr, pathfn + baselen, 260 - baselen, pathmdfn);
+        GetPrivateProfileStringW(L"LaunchApp", L"WorkingDirectory", nullptr, pathdir + baselen, 260 - baselen, pathmdfn);
+        GetPrivateProfileStringW(L"LaunchApp", L"CommandLine", nullptr, cmdl + baselen + 1, 259 - baselen, pathmdfn);
     }
-    baselen++;
-    cmdl[0] = L'\"';
-    lstrcpynW(pathfn, pathmdfn, baselen + 1);
-    lstrcpynW(cmdl + 1, pathmdfn, baselen + 1);
-    lstrcpynW(pathdir, pathmdfn, baselen + 1);
-    lstrcpyW(pathmdfn + lstrlenW(pathmdfn) - 3, L"ini");
-    GetPrivateProfileStringW(L"LaunchApp", L"AppPath", nullptr, pathfn + baselen, 260 - baselen, pathmdfn);
-    GetPrivateProfileStringW(L"LaunchApp", L"WorkingDirectory", nullptr, pathdir + baselen, 260 - baselen, pathmdfn);
-    GetPrivateProfileStringW(L"LaunchApp", L"CommandLine", nullptr, cmdl + baselen + 1, 259 - baselen, pathmdfn);
-    UINT envsize = GetPrivateProfileIntW(L"LaunchApp", L"EnvironmentSize", 1, pathmdfn), envnum = 0;
+    UINT envnum = 0, envsize = GetPrivateProfileIntW(L"LaunchApp", L"EnvironmentSize", 1, pathmdfn);
     LPWSTR env = new wchar_t[envsize];
     GetPrivateProfileSectionW(L"Environment", env, envsize, pathmdfn);
     for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
@@ -52,7 +54,7 @@ int
             lstrcatW(info, L"\r\n");
             lstrcatW(info, i);
         }
-        MessageBoxW(nullptr, info, L"运行失败", MB_ICONERROR);
+        MessageBoxW(nullptr, info, L"启动失败", MB_ICONERROR);
         delete[] info;
     }
     delete[] env;

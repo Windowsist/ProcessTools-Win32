@@ -8,4 +8,4 @@ add_executable(exec_AsInvoker WIN32 exec_AsInvoker/Resource.rc exec_AsInvoker/ma
 add_executable(Launcher WIN32 Launcher/Resource.rc Launcher/main.cpp)
 add_executable(Launcher_Env WIN32 Launcher_Env/Resource.rc Launcher_Env/main.cpp)
 add_executable(ShellOpener WIN32 ShellOpener/Resource.rc ShellOpener/main.cpp)
-add_executable(ShowCommandLine WIN32 ShowCommandLine/Resource.rc ShowCommandLine/main.cpp)
+add_executable(ShowInvokeInfo WIN32 ShowInvokeInfo/Resource.rc ShowInvokeInfo/main.cpp)

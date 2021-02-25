@@ -10,7 +10,7 @@ int
 {
     if (!*lpCmdLine)
     {
-        MessageBoxW(nullptr, L"需要指定运行的程序", L"未运行", MB_ICONINFORMATION);
+        MessageBoxW(nullptr, L"需要指定要启动的程序", L"未启动", MB_ICONINFORMATION);
         return 0;
     }
     if (!SetEnvironmentVariableW(L"__COMPAT_LAYER", L"RUNASINVOKER"))
@@ -30,7 +30,7 @@ int
         lstrcatW(info, lpCmdLine);
         lstrcatW(info, L"\r\n工作目录：");
         lstrcatW(info, pathdir);
-        MessageBoxW(0, info, L"运行失败", MB_ICONERROR);
+        MessageBoxW(0, info, L"启动失败", MB_ICONERROR);
         delete[] info;
     }
     return 0;

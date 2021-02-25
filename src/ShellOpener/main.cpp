@@ -8,7 +8,8 @@ int
              _In_ LPWSTR lpCmdLine,
              _In_ int nShowCmd)
 {
-    OPENFILENAMEW myfn =
+    wchar_t lpstrFile[260];
+    OPENFILENAMEW ofn =
         {
             sizeof(OPENFILENAMEW), //DWORD lStructSize;
             nullptr,               //HWND hwndOwner;
@@ -17,7 +18,7 @@ int
             nullptr,               //LPWSTR lpstrCustomFilter;
             0,                     //DWORD nMaxCustFilter;
             0,                     //DWORD nFilterIndex;
-            new wchar_t[260],      //LPWSTR lpstrFile;
+            lpstrFile,      //LPWSTR lpstrFile;
             260,                   //DWORD nMaxFile;
             nullptr,               //LPWSTR lpstrFileTitle;
             0,                     //DWORD nMaxFileTitle;
@@ -42,17 +43,16 @@ int
     {
         int argc;
         LPWSTR *argv = CommandLineToArgvW(lpCmdLine, &argc);
-        myfn.lpstrInitialDir = argv[0];
+        ofn.lpstrInitialDir = argv[0];
     }
-    *(myfn.lpstrFile) = 0;
+    *(ofn.lpstrFile) = 0;
     do
     {
-        if (!GetOpenFileNameW(&myfn))
+        if (!GetOpenFileNameW(&ofn))
         {
             break;
         }
-        ShellExecuteW(nullptr, nullptr, myfn.lpstrFile, nullptr, nullptr, SW_SHOWDEFAULT);
-    } while ((myfn.Flags & OFN_READONLY) == OFN_READONLY);
-    delete[] myfn.lpstrFile;
+        ShellExecuteW(nullptr, nullptr, ofn.lpstrFile, nullptr, nullptr, SW_SHOWDEFAULT);
+    } while ((ofn.Flags & OFN_READONLY) == OFN_READONLY);
     return 0;
 }
