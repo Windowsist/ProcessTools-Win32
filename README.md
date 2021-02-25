@@ -3,6 +3,8 @@
 启动指定程序
 ## exec_AsInvoker
 强制以标准用户（普通权限）启动指定程序
+## exec_lite
+启动指定程序（不显示任何信息，不修改工作目录）
 ## Launcher
 启动配置文件指定的程序
 ## Launcher_Env
