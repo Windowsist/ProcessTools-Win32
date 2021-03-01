@@ -1,6 +1,0 @@
-﻿
-STPROC(CfgFile);
-STPROC(Program);
-STPROC(CmdLine);
-STPROC(Directory);
-STPROC(StartFailed);
