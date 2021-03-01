@@ -2,10 +2,17 @@
 
 #include "pch.h"
 
+#define STCONTENT       \
+    CONTENT(CfgFile);   \
+    CONTENT(Program);   \
+    CONTENT(CmdLine);   \
+    CONTENT(Directory); \
+    CONTENT(StartFailed);
+
 void StringTableInit(HINSTANCE hInstance);
 
-extern LPWSTR szCfgFile;
-extern LPWSTR szProgram;
-extern LPWSTR szCmdLine;
-extern LPWSTR szDirectory;
-extern LPWSTR szStartFailed;
+#define CONTENT(x) extern LPWSTR sz##x
+
+STCONTENT
+
+#undef CONTENT

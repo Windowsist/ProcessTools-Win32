@@ -1,0 +1,7 @@
+﻿
+STPROC(NeedArg);
+STPROC(NotStarted);
+STPROC(Program);
+STPROC(CmdLine);
+STPROC(Directory);
+STPROC(StartFailed);

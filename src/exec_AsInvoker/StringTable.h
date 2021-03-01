@@ -2,15 +2,22 @@
 
 #include "pch.h"
 
+#define STCONTENT          \
+    CONTENT(NeedArg);      \
+    CONTENT(NotStarted);   \
+    CONTENT(Program);      \
+    CONTENT(CmdLine);      \
+    CONTENT(Directory);    \
+    CONTENT(StartFailed);  \
+    CONTENT(SetEnvFailed); \
+    CONTENT(Warning);      \
+    CONTENT(EnvName);      \
+    CONTENT(EnvValue);
+
 void StringTableInit(HINSTANCE hInstance);
 
-extern LPWSTR szNeedArg;
-extern LPWSTR szNotStarted;
-extern LPWSTR szProgram;
-extern LPWSTR szCmdLine;
-extern LPWSTR szDirectory;
-extern LPWSTR szStartFailed;
-extern LPWSTR szSetEnvFailed;
-extern LPWSTR szWarning;
-extern LPWSTR szEnvName;
-extern LPWSTR szEnvValue;
+#define CONTENT(x) extern LPWSTR sz##x
+
+STCONTENT
+
+#undef CONTENT
