@@ -1,5 +1,5 @@
 ﻿
-#include <windows.h>
+#include "main.h"
 
 int
     WINAPI
@@ -8,6 +8,7 @@ int
              _In_ LPWSTR lpCmdLine,
              _In_ int nShowCmd)
 {
+    StringTableInit(hInstance);
     wchar_t pathmdfn[260], pathfn[260], cmdl[260], pathdir[260];
     GetModuleFileNameW(hInstance, pathmdfn, 260);
     {
@@ -34,27 +35,27 @@ int
         envnum++; // "\0" --> "\r\n", every env expands size 1
         if (_wputenv(i))
         {
-            MessageBoxW(nullptr, i, L"设置环境变量失败", MB_ICONWARNING);
+            MessageBoxW(nullptr, i, szSetEnvFailed, MB_ICONWARNING);
         }
     }
     if (!CreateProcessW(pathfn, cmdl, nullptr, nullptr, FALSE, 0, nullptr, pathdir, &_STARTUPINFOW(), &_PROCESS_INFORMATION()))
     {
-        LPWSTR info = new wchar_t[(size_t)lstrlenW(pathmdfn) + lstrlenW(pathfn) + lstrlenW(cmdl) + lstrlenW(pathdir) + envsize + envnum + 30];
-        lstrcpyW(info, L"配置文件：");
+        LPWSTR info = new wchar_t[(size_t)lstrlenW(szCfgFile) + lstrlenW(pathmdfn) + lstrlenW(szProgram) + lstrlenW(pathfn) + lstrlenW(szCmdLine) + lstrlenW(cmdl) + lstrlenW(szDirectory) + lstrlenW(pathdir) + lstrlenW(szEnv) + envsize + envnum];
+        lstrcpyW(info, szCfgFile);
         lstrcatW(info, pathmdfn);
-        lstrcatW(info, L"\r\n程序：");
+        lstrcatW(info, szProgram);
         lstrcatW(info, pathfn);
-        lstrcatW(info, L"\r\n命令行：");
+        lstrcatW(info, szCmdLine);
         lstrcatW(info, cmdl);
-        lstrcatW(info, L"\r\n工作目录：");
+        lstrcatW(info, szDirectory);
         lstrcatW(info, pathdir);
-        lstrcatW(info, L"\r\n环境变量：");
+        lstrcatW(info, szEnv);
         for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
         {
             lstrcatW(info, L"\r\n");
             lstrcatW(info, i);
         }
-        MessageBoxW(nullptr, info, L"启动失败", MB_ICONERROR);
+        MessageBoxW(nullptr, info, szStartFailed, MB_ICONERROR);
         delete[] info;
     }
     delete[] env;

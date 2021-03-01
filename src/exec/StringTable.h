@@ -1,4 +1,6 @@
-﻿#include "pch.h"
+﻿#pragma once
+
+#include "pch.h"
 
 void StringTableInit(HINSTANCE hInstance);
 

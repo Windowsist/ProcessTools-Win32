@@ -4,9 +4,21 @@
 
 void StringTableInit(HINSTANCE hInstance)
 {
-    LOADS();
+    LOADS(CfgFile);
+    LOADS(Program);
+    LOADS(CmdLine);
+    LOADS(Directory);
+    LOADS(StartFailed);
+    LOADS(Env);
+    LOADS(SetEnvFailed);
 }
 
 #undef LOADS
 
-LPWSTR szClassName;
+LPWSTR szCfgFile;
+LPWSTR szProgram;
+LPWSTR szCmdLine;
+LPWSTR szDirectory;
+LPWSTR szStartFailed;
+LPWSTR szEnv;
+LPWSTR szSetEnvFailed;

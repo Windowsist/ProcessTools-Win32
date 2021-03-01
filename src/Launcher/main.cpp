@@ -1,5 +1,5 @@
-﻿#define WIN32_LEAN_AND_MEAN             // 从 Windows 头文件中排除极少使用的内容
-#include <windows.h>
+﻿
+#include "main.h"
 
 int
     WINAPI
@@ -8,6 +8,7 @@ int
              _In_ LPWSTR lpCmdLine,
              _In_ int nShowCmd)
 {
+    StringTableInit(hInstance);
     wchar_t pathmdfn[260], pathfn[260], cmdl[260], pathdir[260];
     GetModuleFileNameW(hInstance, pathmdfn, 260);
     {
@@ -28,16 +29,16 @@ int
     }
     if (!CreateProcessW(pathfn, cmdl, nullptr, nullptr, FALSE, 0, nullptr, pathdir, &_STARTUPINFOW(), &_PROCESS_INFORMATION()))
     {
-        LPWSTR info = new wchar_t[(size_t)lstrlenW(pathmdfn) + lstrlenW(pathfn) + lstrlenW(cmdl) + lstrlenW(pathdir) + 24];
-        lstrcpyW(info, L"配置文件：");
+        LPWSTR info = new wchar_t[(size_t)lstrlenW(szCfgFile) + lstrlenW(pathmdfn) + lstrlenW(szProgram) + lstrlenW(pathfn) + lstrlenW(szCmdLine) + lstrlenW(cmdl) + lstrlenW(szDirectory) + lstrlenW(pathdir) + 1];
+        lstrcpyW(info, szCfgFile);
         lstrcatW(info, pathmdfn);
-        lstrcatW(info, L"\r\n程序：");
+        lstrcatW(info, szProgram);
         lstrcatW(info, pathfn);
-        lstrcatW(info, L"\r\n命令行：");
+        lstrcatW(info, szCmdLine);
         lstrcatW(info, cmdl);
-        lstrcatW(info, L"\r\n工作目录：");
+        lstrcatW(info, szDirectory);
         lstrcatW(info, pathdir);
-        MessageBoxW(nullptr, info, L"启动失败", MB_ICONERROR);
+        MessageBoxW(nullptr, info, szStartFailed, MB_ICONERROR);
         delete[] info;
     }
     return 0;
