@@ -1,5 +1,5 @@
 ﻿
-#include <windows.h>
+#include "main.h"
 
 int
     WINAPI
@@ -8,14 +8,15 @@ int
              _In_ LPWSTR lpCmdLine,
              _In_ int nShowCmd)
 {
+    StringTableInit(hInstance);
     if (!*lpCmdLine)
     {
-        MessageBoxW(nullptr, L"需要指定要启动的程序", L"未启动", MB_ICONINFORMATION);
+        MessageBoxW(nullptr, szNeedArg, szNotStarted, MB_ICONINFORMATION);
         return 0;
     }
-    if (!SetEnvironmentVariableW(L"__COMPAT_LAYER", L"RUNASINVOKER"))
+    if (!SetEnvironmentVariableW(szEnvName, szEnvValue))
     {
-        MessageBoxW(nullptr, L"设置环境变量失败", L"警告", MB_ICONWARNING);
+        MessageBoxW(nullptr, szSetEnvFailed, szWarning, MB_ICONWARNING);
     }
     int argc;
     LPWSTR *argv = CommandLineToArgvW(lpCmdLine, &argc);
@@ -23,14 +24,14 @@ int
     _wsplitpath_s(argv[0], pathdir, 3, pathdir + 2, 258, nullptr, 0, nullptr, 0);
     if (!CreateProcessW(argv[0], lpCmdLine, nullptr, nullptr, FALSE, 0, nullptr, pathdir, &_STARTUPINFOW(), &_PROCESS_INFORMATION()))
     {
-        LPWSTR info = new wchar_t[(size_t)lstrlenW(argv[0]) + lstrlenW(lpCmdLine) + lstrlenW(pathdir) + 17];
-        lstrcpyW(info, L"程序：");
+        LPWSTR info = new wchar_t[(size_t)lstrlenW(szProgram) + lstrlenW(argv[0]) + lstrlenW(szCmdLine) + lstrlenW(lpCmdLine) + lstrlenW(szDirectory) + lstrlenW(pathdir) + 1];
+        lstrcpyW(info, szProgram);
         lstrcatW(info, argv[0]);
-        lstrcatW(info, L"\r\n命令行：");
+        lstrcatW(info, szCmdLine);
         lstrcatW(info, lpCmdLine);
-        lstrcatW(info, L"\r\n工作目录：");
+        lstrcatW(info, szDirectory);
         lstrcatW(info, pathdir);
-        MessageBoxW(0, info, L"启动失败", MB_ICONERROR);
+        MessageBoxW(0, info, szStartFailed, MB_ICONERROR);
         delete[] info;
     }
     return 0;

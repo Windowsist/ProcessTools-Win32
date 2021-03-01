@@ -28,8 +28,8 @@ int
                     lstrcatW(envString, i);
                     lstrcatW(envString, L"\r\n");
                 }
-                SetWindowTextW(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW()); //windowsx.h Edit_SetText()
-                SetWindowTextW(GetDlgItem(hDlg, IDC_EDIT2), envString);         //windowsx.h Edit_SetText()
+                Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
+                Edit_SetText(GetDlgItem(hDlg, IDC_EDIT2), envString);
                 delete[] envString;
             }
                 return (INT_PTR)TRUE;
