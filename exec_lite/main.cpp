@@ -1,4 +1,5 @@
-﻿#define WIN32_LEAN_AND_MEAN             // 从 Windows 头文件中排除极少使用的内容
+﻿
+#define WIN32_LEAN_AND_MEAN             // 从 Windows 头文件中排除极少使用的内容
 #include <windows.h>
 
 int
@@ -8,5 +9,9 @@ int
              _In_ LPWSTR lpCmdLine,
              _In_ int nShowCmd)
 {
-    return !CreateProcessW(nullptr, lpCmdLine, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &_STARTUPINFOW(), &_PROCESS_INFORMATION());
+    if (!CreateProcessW(nullptr, lpCmdLine, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &_STARTUPINFOW(), &_PROCESS_INFORMATION()))
+    {
+        return GetLastError();
+    }
+    return 0;
 }
