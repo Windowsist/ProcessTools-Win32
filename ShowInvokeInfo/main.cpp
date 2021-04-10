@@ -28,6 +28,7 @@ int
                     lstrcatW(envString, i);
                     lstrcatW(envString, L"\r\n");
                 }
+                FreeEnvironmentStringsW(env);
                 Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
                 Edit_SetText(GetDlgItem(hDlg, IDC_EDIT2), envString);
                 delete[] envString;

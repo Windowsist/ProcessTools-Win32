@@ -11,6 +11,7 @@ int
              _In_ int nShowCmd)
 {
     wchar_t lpstrFile[260];
+    lpstrFile[0] = L'\0';
     OPENFILENAMEW ofn =
         {
             sizeof(OPENFILENAMEW), //DWORD lStructSize;
@@ -18,12 +19,12 @@ int
             hInstance,             //HINSTANCE hInstance;
             nullptr,               //LPCWSTR lpstrFilter;
             nullptr,               //LPWSTR lpstrCustomFilter;
-            0,                     //DWORD nMaxCustFilter;
-            0,                     //DWORD nFilterIndex;
+            0UL,                     //DWORD nMaxCustFilter;
+            0UL,                     //DWORD nFilterIndex;
             lpstrFile,      //LPWSTR lpstrFile;
-            260,                   //DWORD nMaxFile;
+            260UL,                   //DWORD nMaxFile;
             nullptr,               //LPWSTR lpstrFileTitle;
-            0,                     //DWORD nMaxFileTitle;
+            0UL,                     //DWORD nMaxFileTitle;
             nullptr,               //LPCWSTR lpstrInitialDir;
             nullptr,               //L"title(can be null)",//LPCWSTR lpstrTitle;
             //OFN_HIDEREADONLY |
@@ -34,12 +35,12 @@ int
             0,                       //WORD nFileOffset;---------------------------------?
             0,                       //WORD nFileExtension;
             nullptr,                 //LPCWSTR lpstrDefExt;
-            0,                       //LPARAM lCustData;
+            0LL,                       //LPARAM lCustData;
             nullptr,                 //LPOFNHOOKPROC lpfnHook;
             nullptr,                 //LPCWSTR lpTemplateName;
             nullptr,                 //void *pvReserved;
-            0,                       //DWORD dwReserved;
-            0                        //OFN_EX_NOPLACESBAR//DWORD FlagsEx;
+            0UL,                       //DWORD dwReserved;
+            0UL                        //OFN_EX_NOPLACESBAR//DWORD FlagsEx;
         };
     if (*lpCmdLine)
     {
@@ -47,7 +48,6 @@ int
         LPWSTR *argv = CommandLineToArgvW(lpCmdLine, &argc);
         ofn.lpstrInitialDir = argv[0];
     }
-    *(ofn.lpstrFile) = 0;
     do
     {
         if (!GetOpenFileNameW(&ofn))
