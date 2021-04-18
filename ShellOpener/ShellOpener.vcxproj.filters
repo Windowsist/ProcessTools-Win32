@@ -20,6 +20,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Manifest Include="..\PerMonitorHighDPIAware.manifest" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>

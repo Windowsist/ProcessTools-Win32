@@ -32,4 +32,7 @@
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="..\PerMonitorHighDPIAware.manifest" />
+  </ItemGroup>
 </Project>

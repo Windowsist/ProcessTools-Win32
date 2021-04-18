@@ -3,20 +3,15 @@
 
 #include "../comctl6.h"
 
-int
-    WINAPI
-    wWinMain(_In_ HINSTANCE hInstance,
-             _In_opt_ HINSTANCE hPrevInstance,
-             _In_ LPWSTR lpCmdLine,
-             _In_ int nShowCmd)
+extern "C" DWORD Startup(LPVOID)
 {
-    wchar_t lpstrFile[260];
+    wchar_t lpstrFile[MAX_PATH];
     lpstrFile[0] = L'\0';
     OPENFILENAMEW ofn =
         {
             sizeof(OPENFILENAMEW), //DWORD lStructSize;
             nullptr,               //HWND hwndOwner;
-            hInstance,             //HINSTANCE hInstance;
+            nullptr,             //HINSTANCE hInstance;
             nullptr,               //LPCWSTR lpstrFilter;
             nullptr,               //LPWSTR lpstrCustomFilter;
             0UL,                     //DWORD nMaxCustFilter;
@@ -42,12 +37,6 @@ int
             0UL,                       //DWORD dwReserved;
             0UL                        //OFN_EX_NOPLACESBAR//DWORD FlagsEx;
         };
-    if (*lpCmdLine)
-    {
-        int argc;
-        LPWSTR *argv = CommandLineToArgvW(lpCmdLine, &argc);
-        ofn.lpstrInitialDir = argv[0];
-    }
     do
     {
         if (!GetOpenFileNameW(&ofn))
@@ -56,5 +45,6 @@ int
         }
         ShellExecuteW(nullptr, nullptr, ofn.lpstrFile, nullptr, nullptr, SW_SHOWDEFAULT);
     } while ((ofn.Flags & OFN_READONLY) == OFN_READONLY);
-    return 0;
+    ExitProcess(0U);
+    return 0UL;
 }

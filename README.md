@@ -34,7 +34,7 @@
 
 * ShowInvokeInfo
 
-    显示调用信息（命令行，环境变量）
+    显示调用信息（命令行，当前目录，环境变量）
 
 * LaunchAppListEntry [已合并到AdvancedLauncher]
 
