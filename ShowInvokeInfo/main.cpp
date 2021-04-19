@@ -3,7 +3,7 @@
 
 DWORD Startup(LPVOID)
 {
-	ExitProcess(DialogBoxParamW(GetModuleHandleW(nullptr), MAKEINTRESOURCEW(IDD_DIALOG1), nullptr, DlgProc, 0LL));
+	ExitProcess((UINT)DialogBoxParamW(GetModuleHandleW(nullptr), MAKEINTRESOURCEW(IDD_DIALOG1), nullptr, DlgProc, 0LL));
 	return 0UL;
 }
 
