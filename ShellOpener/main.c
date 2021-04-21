@@ -3,24 +3,24 @@
 
 #include "../comctl6.h"
 
-extern "C" DWORD Startup(LPVOID)
+DWORD Startup()
 {
 	{
-		OPENFILENAMEW ofn
+		OPENFILENAMEW ofn =
 		{
 			sizeof(OPENFILENAMEW), //DWORD lStructSize;
-			nullptr,               //HWND hwndOwner;
-			nullptr,               //HINSTANCE hInstance;
-			nullptr,               //LPCWSTR lpstrFilter;
-			nullptr,               //LPWSTR lpstrCustomFilter;
+			NULL,               //HWND hwndOwner;
+			NULL,               //HINSTANCE hInstance;
+			NULL,               //LPCWSTR lpstrFilter;
+			NULL,               //LPWSTR lpstrCustomFilter;
 			0UL,                   //DWORD nMaxCustFilter;
 			0UL,                   //DWORD nFilterIndex;
-			nullptr,               //LPWSTR lpstrFile;
+			NULL,               //LPWSTR lpstrFile;
 			1UL,                   //DWORD nMaxFile;
-			nullptr,               //LPWSTR lpstrFileTitle;
+			NULL,               //LPWSTR lpstrFileTitle;
 			0UL,                   //DWORD nMaxFileTitle;
-			nullptr,               //LPCWSTR lpstrInitialDir;
-			nullptr,               //L"title(can be null)",//LPCWSTR lpstrTitle;
+			NULL,               //LPCWSTR lpstrInitialDir;
+			NULL,               //L"title(can be null)",//LPCWSTR lpstrTitle;
 			OFN_HIDEREADONLY |
 				OFN_ALLOWMULTISELECT |
 				OFN_EXPLORER |
@@ -28,11 +28,11 @@ extern "C" DWORD Startup(LPVOID)
 				OFN_DONTADDTORECENT, //DWORD Flags;
 			0,                       //WORD nFileOffset;---------------------------------?
 			0,                       //WORD nFileExtension;
-			nullptr,                 //LPCWSTR lpstrDefExt;
+			NULL,                 //LPCWSTR lpstrDefExt;
 			0LL,                     //LPARAM lCustData;
-			nullptr,                 //LPOFNHOOKPROC lpfnHook;
-			nullptr,                 //LPCWSTR lpTemplateName;
-			nullptr,                 //void *pvReserved;
+			NULL,                 //LPOFNHOOKPROC lpfnHook;
+			NULL,                 //LPCWSTR lpTemplateName;
+			NULL,                 //void *pvReserved;
 			0UL,                     //DWORD dwReserved;
 			0UL                      //OFN_EX_NOPLACESBAR//DWORD FlagsEx;
 		};

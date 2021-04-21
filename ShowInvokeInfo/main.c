@@ -1,9 +1,9 @@
 
 #include "main.h"
 
-DWORD Startup(LPVOID)
+DWORD Startup()
 {
-	ExitProcess((UINT)DialogBoxParamW(GetModuleHandleW(nullptr), MAKEINTRESOURCEW(IDD_DIALOG1), nullptr, DlgProc, 0LL));
+	ExitProcess((UINT)DialogBoxParamW(GetModuleHandleW(NULL), MAKEINTRESOURCEW(IDD_DIALOG1), NULL, DlgProc, 0LL));
 	return 0UL;
 }
 
@@ -13,11 +13,11 @@ INT_PTR DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_INITDIALOG:
 	{
-		Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
+		SetWindowTextW(GetDlgItem(hDlg, IDC_EDIT1), GetCommandLineW());
 		{
 			wchar_t curdir[MAX_PATH];
 			GetCurrentDirectoryW(MAX_PATH, curdir);
-			Edit_SetText(GetDlgItem(hDlg, IDC_EDIT2), curdir);
+			SetWindowTextW(GetDlgItem(hDlg, IDC_EDIT2), curdir);
 		}
 		LPWCH env = GetEnvironmentStringsW();
 		int envlen = 0;
@@ -34,7 +34,7 @@ INT_PTR DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			lstrcatW(envString, L"\r\n");
 		}
 		FreeEnvironmentStringsW(env);
-		Edit_SetText(GetDlgItem(hDlg, IDC_EDIT3), envString);
+		SetWindowTextW(GetDlgItem(hDlg, IDC_EDIT3), envString);
 		HeapFree(hHeap, 0UL, envString);
 	}
 	return (INT_PTR)TRUE;
