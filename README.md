@@ -20,11 +20,7 @@
 
     启动指定程序（不显示任何信息，不修改工作目录）
 
-* Launcher [已合并到AdvancedLauncher]
-
-    启动配置文件指定的程序
-
-* Launcher_Env [已合并到AdvancedLauncher]
+* Launcher
 
     启动配置文件指定的程序（可指定环境变量）
 
