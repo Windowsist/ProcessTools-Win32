@@ -1,10 +1,10 @@
 
 #include "main.h"
 
+
 #define heapalloc(dwBytes) HeapAlloc(hHeap, 0, dwBytes)
 #define heaprealloc(lpMem, dwBytes) HeapReAlloc(hHeap, 0, lpMem, dwBytes)
 #define heapfree(lpMem) HeapFree(hHeap, 0, lpMem)
-
 
 DWORD Startup()
 {
@@ -31,24 +31,27 @@ DWORD Startup()
 	{
 		buffer = heaprealloc(buffer, (length *= 2) * sizeof(wchar_t));
 	}
-	LPWSTR AppPath = expandEnvString(buffer);
+	LPWSTR AppPath = GetLastError() == ERROR_FILE_NOT_FOUND ? NULL : expandEnvString(buffer);
 	while (GetPrivateProfileStringW(L"LaunchApp", L"WorkingDirectory", NULL, buffer, length, file) == length - 1)
 	{
 		buffer = heaprealloc(buffer, (length *= 2) * sizeof(wchar_t));
 	}
-	LPWSTR WorkingDirectory = expandEnvString(buffer);
+	LPWSTR WorkingDirectory = GetLastError() == ERROR_FILE_NOT_FOUND ? NULL : expandEnvString(buffer);
 	while (GetPrivateProfileStringW(L"LaunchApp", L"CommandLine", NULL, buffer, length, file) == length - 1)
 	{
 		buffer = heaprealloc(buffer, (length *= 2) * sizeof(wchar_t));
 	}
-	LPWSTR CommandLine = expandEnvString(buffer);
+	LPWSTR CommandLine = GetLastError() == ERROR_FILE_NOT_FOUND ? NULL : expandEnvString(buffer);
 	while (GetPrivateProfileSectionW(L"EnvironmentVariables", buffer, length, file) == length - 2)
 	{
 		buffer = heaprealloc(buffer, (length *= 2) * sizeof(wchar_t));
 	}
-	for (LPWSTR env = buffer; lstrlenW(env); env += lstrlenW(env) + 1)
+	if (GetLastError() != ERROR_FILE_NOT_FOUND)
 	{
-		putenv(expandEnvString(env));
+		for (LPWSTR env = buffer; lstrlenW(env); env += lstrlenW(env) + 1)
+		{
+			putenv(expandEnvString(env));
+		}
 	}
 	heapfree(buffer);
 	SetEnvironmentVariableW(L"LauncherDir", NULL);
@@ -56,16 +59,16 @@ DWORD Startup()
 	PROCESS_INFORMATION pi;
 	if (!CreateProcessW(AppPath, CommandLine, NULL, NULL, FALSE, 0, NULL, WorkingDirectory, &si, &pi))
 	{
-		heapfree(AppPath);
-		heapfree(WorkingDirectory);
-		heapfree(CommandLine);
+		if (AppPath)heapfree(AppPath);
+		if (WorkingDirectory)heapfree(WorkingDirectory);
+		if (CommandLine)heapfree(CommandLine);
 		ExitProcess(GetLastError());
 	}
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
-	heapfree(AppPath);
-	heapfree(WorkingDirectory);
-	heapfree(CommandLine);
+	if (AppPath)heapfree(AppPath);
+	if (WorkingDirectory)heapfree(WorkingDirectory);
+	if (CommandLine)heapfree(CommandLine);
 	ExitProcess(0);
 	return 0UL;
 }
