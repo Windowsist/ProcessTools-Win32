@@ -1,7 +1,6 @@
 
 #include "main.h"
 
-
 #define heapalloc(dwBytes) HeapAlloc(hHeap, 0, dwBytes)
 #define heaprealloc(lpMem, dwBytes) HeapReAlloc(hHeap, 0, lpMem, dwBytes)
 #define heapfree(lpMem) HeapFree(hHeap, 0, lpMem)
@@ -63,6 +62,7 @@ DWORD Startup()
 		if (WorkingDirectory)heapfree(WorkingDirectory);
 		if (CommandLine)heapfree(CommandLine);
 		ExitProcess(GetLastError());
+		return 0UL;
 	}
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
