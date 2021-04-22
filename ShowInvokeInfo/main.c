@@ -26,7 +26,7 @@ INT_PTR DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			envlen += lstrlenW(i) + 2;
 		}
 		HANDLE hHeap = GetProcessHeap();
-		LPWSTR envString = (LPWSTR)HeapAlloc(hHeap, 0UL, (envlen + 1) * sizeof(wchar_t));
+		LPWSTR envString = HeapAlloc(hHeap, 0UL, (envlen + 1) * sizeof(wchar_t));
 		envString[0] = L'\0';
 		for (LPWSTR i = env; lstrlenW(i); i += lstrlenW(i) + 1)
 		{

@@ -64,13 +64,16 @@ DWORD Startup()
 		ExitProcess(GetLastError());
 		return 0UL;
 	}
-	CloseHandle(pi.hProcess);
-	CloseHandle(pi.hThread);
-	if (AppPath)heapfree(AppPath);
-	if (WorkingDirectory)heapfree(WorkingDirectory);
-	if (CommandLine)heapfree(CommandLine);
-	ExitProcess(0);
-	return 0UL;
+	else
+	{
+		CloseHandle(pi.hProcess);
+		CloseHandle(pi.hThread);
+		if (AppPath)heapfree(AppPath);
+		if (WorkingDirectory)heapfree(WorkingDirectory);
+		if (CommandLine)heapfree(CommandLine);
+		ExitProcess(0);
+		return 0UL;
+	}
 }
 
 LPWSTR expandEnvString(LPWSTR raw)
