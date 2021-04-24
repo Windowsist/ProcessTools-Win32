@@ -1,8 +1,6 @@
 
 #include <windows.h>
 
-#include "../comctl6.h"
-
 DWORD Startup()
 {
 	{

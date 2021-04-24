@@ -10,8 +10,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35D5311E-B355-46C2-BDB9-B164A482F0F2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		comctl6.h = comctl6.h
 		README.md = README.md
+		Windowsist.GUI.manifest = Windowsist.GUI.manifest
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Launcher", "Launcher\Launcher.vcxproj", "{C41C77BA-6E7F-4773-8A21-9692BE04A36C}"
