@@ -7,7 +7,4 @@
 #endif
 
 #include <windows.h>
-
-LPWSTR expandEnvString(LPWSTR raw);
-void putenv(LPWSTR env);
-extern HANDLE hHeap;
+#include <stdlib.h>

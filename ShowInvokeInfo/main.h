@@ -6,6 +6,7 @@
 
 #include <windows.h>
 #include <windowsx.h>
+#include <stdlib.h>
 #include "resource.h"
 
 DWORD Startup();
